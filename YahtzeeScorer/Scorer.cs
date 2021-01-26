@@ -31,6 +31,41 @@ namespace YahtzeeScorer
             return highPair;
         }
 
+        public int ScoreTwoPair(int[] dice)
+        {
+            return 0;
+        }
+
+        public int ScoreThreeOfAKind(int[] dice)
+        {
+            return 0;
+        }
+
+        public int ScoreFourOfAKind(int[] dice)
+        {
+            return 0;
+        }
+
+        public int ScoreSmallStraight(int[] dice)
+        {
+            return 0;
+        }
+
+        public int ScoreLargeStraight(int[] dice)
+        {
+            return 0;
+        }
+
+        public int ScoreFullHouse(int[] dice)
+        {
+            return 0;
+        }
+
+        public int ScoreYahtzee(int[] dice)
+        {
+            return 0;
+        }
+
 
         //public int ScoreByNumber(int[] dice, int chosenNumber)
         //{

@@ -42,6 +42,7 @@ namespace YahtzeeTests
 
         [Theory]
         [InlineData(new int[] { 4, 4, 3, 2, 1 }, 8)]
+        [InlineData(new int[] { 4, 4, 5, 5, 2 } , 10)]
         public void Score_Highest_Pair(int[] dice, int expectedScore)
         {
             Scorer scorer = new Scorer();
