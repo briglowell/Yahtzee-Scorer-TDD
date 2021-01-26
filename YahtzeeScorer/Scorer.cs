@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace YahtzeeScorer
@@ -18,7 +19,16 @@ namespace YahtzeeScorer
 
         public int ScoreByHighestPair(int[] dice)
         {
-            return 8;
+            int highPair = 0;
+            var dict = new Dictionary<int, int>();
+            foreach (int die in dice)
+            {
+                if (dict.ContainsKey(die)) dict[die]++;
+                else dict.Add(die, 0);
+                //dict.ContainsKey(die) ? dict[die]++ : dict.Add(die, 0);
+                if (dict[die] == 1 && die*2 > highPair) highPair = die*2;
+            }
+            return highPair;
         }
 
 
