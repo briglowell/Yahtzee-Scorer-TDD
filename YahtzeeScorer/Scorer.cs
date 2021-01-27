@@ -24,26 +24,54 @@ namespace YahtzeeScorer
             foreach (int die in dice)
             {
                 if (dict.ContainsKey(die)) dict[die]++;
-                else dict.Add(die, 0);
+                else dict.Add(die, 1);
                 //dict.ContainsKey(die) ? dict[die]++ : dict.Add(die, 0);
-                if (dict[die] == 1 && die*2 > highPair) highPair = die*2;
+                if (dict[die] == 2 && die*2 > highPair) highPair = die*2;
             }
             return highPair;
         }
 
         public int ScoreTwoPair(int[] dice)
         {
-            return 0;
+            int pairScore = 0;
+            int firstPair = 0;
+            int secondPair = 0;
+            var dict = new Dictionary<int, int>();
+            foreach (int die in dice)
+            {
+                if (dict.ContainsKey(die)) dict[die]++;
+                else dict.Add(die, 1);
+                if (dict[die] == 2 && firstPair > 0) secondPair = 2 * die;
+                else if (dict[die] == 2) firstPair = 2 * die;
+                if (firstPair > 0 && secondPair > 0) pairScore = firstPair + secondPair;
+            }
+            return pairScore;
         }
 
         public int ScoreThreeOfAKind(int[] dice)
         {
-            return 0;
+            int highTriple = 0;
+            var dict = new Dictionary<int, int>();
+            foreach (int die in dice)
+            {
+                if (dict.ContainsKey(die)) dict[die]++;
+                else dict.Add(die, 1);
+                if (dict[die] == 3 && die * 3 > highTriple) highTriple = die * 3;
+            }
+            return highTriple;
         }
 
         public int ScoreFourOfAKind(int[] dice)
         {
-            return 0;
+            int highQuadruple = 0;
+            var dict = new Dictionary<int, int>();
+            foreach (int die in dice)
+            {
+                if (dict.ContainsKey(die)) dict[die]++;
+                else dict.Add(die, 1);
+                if (dict[die] == 4 && die * 4 > highQuadruple) highQuadruple = die * 4;
+            }
+            return highQuadruple;
         }
 
         public int ScoreSmallStraight(int[] dice)

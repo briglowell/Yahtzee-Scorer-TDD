@@ -50,38 +50,44 @@ namespace YahtzeeTests
             Assert.Equal(expectedScore, actualScore);
         }
 
-        // [Fact]
-        //public void Score_By_Number_Returns_30_Given_Five_Sixes()
-        // {
-        //     Scorer scorer = new Scorer();
-        //     int[] dice = new int[] { 6, 6, 6, 6, 6 };
-        //     int expectedScore = 30;
-        //     int actualScore = scorer.ScoreByNumber(dice, 6);
-        //     Assert.Equal(expectedScore, actualScore);
-        // }
+        [Theory]
+        [InlineData(new int[] { 4, 4, 3, 2, 1 }, 0)]
+        [InlineData(new int[] { 4, 4, 5, 5, 2 }, 18)]
+        [InlineData(new int[] { 1, 1, 3, 3, 2 }, 8)]
+        [InlineData(new int[] { 5, 5, 5, 5, 2 }, 0)]
+        [InlineData(new int[] { 5, 4, 3, 2, 1 }, 0)]
 
+        public void Score_Two_Pair(int[] dice, int expectedScore)
+        {
+            Scorer scorer = new Scorer();
+            int actualScore = scorer.ScoreTwoPair(dice);
+            Assert.Equal(expectedScore, actualScore);
+        }
 
-        //[Fact]
-        //public void Score_By_Number_Returns_0_Given_Four_Dice()
-        //{
-        //    Scorer scorer = new Scorer();
-        //    int[] dice = new int[] { 4, 5, 6, 1 };
-        //    int expectedScore = 0;
-        //    int actualScore = scorer.ScoreByNumber(dice, 6);
-        //    Assert.Equal(expectedScore, actualScore);
-        //}
+        [Theory]
+        [InlineData(new int[] { 4, 4, 3, 2, 1 }, 0)]
+        [InlineData(new int[] { 5, 4, 3, 2, 1 }, 0)]
+        [InlineData(new int[] { 4, 4, 4, 5, 2 }, 12)]
+        [InlineData(new int[] { 4, 4, 4, 4, 2 }, 12)]
+        public void Score_Three_Of_A_Kind(int[] dice, int expectedScore)
+        {
+            Scorer scorer = new Scorer();
+            int actualScore = scorer.ScoreThreeOfAKind(dice);
+            Assert.Equal(expectedScore, actualScore);
+        }
 
-        //[Theory]
-        //[InlineData(new int[] { 6,6,6,6,6}, 4, 0)]
-        //[InlineData(new int[] { 6,6,6,6,6}, 6, 30)]
-        //[InlineData(new int[] { 6,6,6,6,5}, 6, 24)]
-        //[InlineData(new int[] { 6,6,6,6}, 6, 0)]
-        //public void Score_By_Number(int[] dice, int chosenNum, int expectedScore)
-        //{
-        //    Scorer scorer = new Scorer();
-        //    int actualScore = scorer.ScoreByNumber(dice, chosenNum);
-        //    Assert.Equal(expectedScore, actualScore);
-        //}
+        [Theory]
+        [InlineData(new int[] { 4, 4, 3, 2, 1 }, 0)]
+        [InlineData(new int[] { 4, 4, 4, 5, 2 }, 0)]
+        [InlineData(new int[] { 4, 4, 4, 4, 2 }, 16)]
+        [InlineData(new int[] { 2, 2, 2, 2, 2 }, 8)]
+
+        public void Score_Four_Of_A_Kind(int[] dice, int expectedScore)
+        {
+            Scorer scorer = new Scorer();
+            int actualScore = scorer.ScoreFourOfAKind(dice);
+            Assert.Equal(expectedScore, actualScore);
+        }
 
         //[Theory]
         //[InlineData(new int[] { 1, 2, 3, 4, 5 }, 5, 5)]
