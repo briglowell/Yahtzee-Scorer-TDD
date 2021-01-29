@@ -12,9 +12,15 @@ namespace YahtzeeScorer
             int dieSum = 0;
             foreach (int die in dice)
             {
-                if (die == chosenNum) dieSum += die;
+                if (die == chosenNum) 
+                    dieSum += die;
             }
             return dieSum;
+        }
+
+        public int ScoreBySumOfAllDice(int[] dice)
+        {
+            return dice.Sum();
         }
 
         public int ScoreByHighestPair(int[] dice)
@@ -23,10 +29,12 @@ namespace YahtzeeScorer
             var dict = new Dictionary<int, int>();
             foreach (int die in dice)
             {
-                if (dict.ContainsKey(die)) dict[die]++;
-                else dict.Add(die, 1);
-                //dict.ContainsKey(die) ? dict[die]++ : dict.Add(die, 0);
-                if (dict[die] == 2 && die*2 > highPair) highPair = die*2;
+                if (dict.ContainsKey(die)) 
+                    dict[die]++;
+                else 
+                    dict.Add(die, 1);
+                if (dict[die] == 2 && die*2 > highPair) 
+                    highPair = die*2;
             }
             return highPair;
         }
@@ -39,11 +47,16 @@ namespace YahtzeeScorer
             var dict = new Dictionary<int, int>();
             foreach (int die in dice)
             {
-                if (dict.ContainsKey(die)) dict[die]++;
-                else dict.Add(die, 1);
-                if (dict[die] == 2 && firstPair > 0) secondPair = 2 * die;
-                else if (dict[die] == 2) firstPair = 2 * die;
-                if (firstPair > 0 && secondPair > 0) pairScore = firstPair + secondPair;
+                if (dict.ContainsKey(die)) 
+                    dict[die]++;
+                else 
+                    dict.Add(die, 1);
+                if (dict[die] == 2 && firstPair > 0) 
+                    secondPair = 2 * die;
+                else if (dict[die] == 2) 
+                    firstPair = 2 * die;
+                if (firstPair > 0 && secondPair > 0) 
+                    pairScore = firstPair + secondPair;
             }
             return pairScore;
         }
@@ -54,9 +67,12 @@ namespace YahtzeeScorer
             var dict = new Dictionary<int, int>();
             foreach (int die in dice)
             {
-                if (dict.ContainsKey(die)) dict[die]++;
-                else dict.Add(die, 1);
-                if (dict[die] == 3 && die * 3 > highTriple) highTriple = die * 3;
+                if (dict.ContainsKey(die)) 
+                    dict[die]++;
+                else 
+                    dict.Add(die, 1);
+                if (dict[die] == 3 && die * 3 > highTriple) 
+                    highTriple = die * 3;
             }
             return highTriple;
         }
@@ -67,20 +83,63 @@ namespace YahtzeeScorer
             var dict = new Dictionary<int, int>();
             foreach (int die in dice)
             {
-                if (dict.ContainsKey(die)) dict[die]++;
-                else dict.Add(die, 1);
-                if (dict[die] == 4 && die * 4 > highQuadruple) highQuadruple = die * 4;
+                if (dict.ContainsKey(die)) 
+                    dict[die]++;
+                else 
+                    dict.Add(die, 1);
+                if (dict[die] == 4 && die * 4 > highQuadruple) 
+                    highQuadruple = die * 4;
             }
             return highQuadruple;
         }
 
         public int ScoreSmallStraight(int[] dice)
         {
+            int[] distinctDice = dice.Distinct().ToArray();
+            Array.Sort(distinctDice);
+            if (distinctDice.Length < 4) 
+                return 0;
+
+            int consecutiveNumbers = 0;
+            for (int i = 0; i < distinctDice.Length; i++)
+            {
+                if(i + 1  <= distinctDice.Length-1)
+                {
+                    if (distinctDice[i + 1] == distinctDice[i] + 1)
+                    {
+                        consecutiveNumbers++;
+                        if (consecutiveNumbers == 3)
+                            return 15;
+                    }
+                    else consecutiveNumbers = 0;
+                }
+                
+            }
             return 0;
         }
 
         public int ScoreLargeStraight(int[] dice)
         {
+            int[] distinctDice = dice.Distinct().ToArray();
+            Array.Sort(distinctDice);
+            if (distinctDice.Length < 5)
+                return 0;
+
+            int consecutiveNumbers = 0;
+            for (int i = 0; i < distinctDice.Length; i++)
+            {
+                if (i + 1 <= distinctDice.Length - 1)
+                {
+                    if (distinctDice[i + 1] == distinctDice[i] + 1)
+                    {
+                        consecutiveNumbers++;
+                        if (consecutiveNumbers == 4)
+                            return 20;
+                    }
+                    else consecutiveNumbers = 0;
+                }
+
+            }
             return 0;
         }
 

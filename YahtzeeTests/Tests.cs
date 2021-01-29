@@ -41,6 +41,20 @@ namespace YahtzeeTests
         }
 
         [Theory]
+        [InlineData(new int[] { 6, 6, 6, 6, 6 }, 30)]
+        [InlineData(new int[] { 6, 5, 6, 4, 3 }, 24)]
+        [InlineData(new int[] { 4, 4, 4, 3, 1 }, 16)]
+        [InlineData(new int[] { 4, 4, 4, 4, 1 }, 17)]
+        [InlineData(new int[] { 4, 1, 2, 3, 1 }, 11)]
+        [InlineData(new int[] { 1, 1, 1, 3, 1 }, 7)]
+        public void Score_By_Sum_Of_All_Dice(int[] dice, int expectedScore)
+        {
+            Scorer scorer = new Scorer();
+            int actualScore = scorer.ScoreBySumOfAllDice(dice);
+            Assert.Equal(expectedScore, actualScore);
+        }
+
+        [Theory]
         [InlineData(new int[] { 4, 4, 3, 2, 1 }, 8)]
         [InlineData(new int[] { 4, 4, 5, 5, 2 } , 10)]
         public void Score_Highest_Pair(int[] dice, int expectedScore)
@@ -88,6 +102,32 @@ namespace YahtzeeTests
             int actualScore = scorer.ScoreFourOfAKind(dice);
             Assert.Equal(expectedScore, actualScore);
         }
+
+        [Theory]
+        [InlineData(new int[] { 4, 4, 3, 2, 1 }, 15)]
+        [InlineData(new int[] { 4, 4, 4, 5, 2 }, 0)]
+        [InlineData(new int[] { 6, 3, 1, 4, 5 }, 15)]
+        [InlineData(new int[] { 2, 3, 4, 5, 2 }, 15)]
+
+        public void Score_A_Small_Straight(int[] dice, int expectedScore)
+        {
+            Scorer scorer = new Scorer();
+            int actualScore = scorer.ScoreSmallStraight(dice);
+            Assert.Equal(expectedScore, actualScore);
+        }
+
+        [Theory]
+        [InlineData(new int[] { 4, 4, 4, 5, 2 }, 0)]
+        [InlineData(new int[] { 6, 3, 2, 4, 5 }, 20)]
+        [InlineData(new int[] { 2, 3, 4, 5, 1 }, 20)]
+
+        public void Score_A_Large_Straight(int[] dice, int expectedScore)
+        {
+            Scorer scorer = new Scorer();
+            int actualScore = scorer.ScoreLargeStraight(dice);
+            Assert.Equal(expectedScore, actualScore);
+        }
+
 
         //[Theory]
         //[InlineData(new int[] { 1, 2, 3, 4, 5 }, 5, 5)]
