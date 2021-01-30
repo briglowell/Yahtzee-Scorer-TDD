@@ -145,12 +145,48 @@ namespace YahtzeeScorer
 
         public int ScoreFullHouse(int[] dice)
         {
-            return 0;
+            int highDouble = 0;
+            int highTriple = 0;
+            int fullHouse;
+            var dict = new Dictionary<int, int>();
+            foreach (int die in dice)
+            {
+                if (dict.ContainsKey(die))
+                    dict[die]++;
+                else
+                    dict.Add(die, 1);
+                if (dict[die] == 3 && die * 3 > highTriple)
+                    highTriple = die * 3;
+            }
+            foreach(var entry in dict)
+            {
+                int die = entry.Key;
+                int numDie = entry.Value;
+                if (numDie >= 2 && die * 2 > highDouble && highTriple/3 != die)
+                    highDouble = die * 2;
+            }
+            if (highTriple == 0 || highDouble == 0)
+                fullHouse = 0;
+            else
+                fullHouse = highDouble + highTriple;
+                
+            return fullHouse;
         }
 
         public int ScoreYahtzee(int[] dice)
         {
-            return 0;
+            int yahtzee = 0;
+            var dict = new Dictionary<int, int>();
+            foreach (int die in dice)
+            {
+                if (dict.ContainsKey(die))
+                    dict[die]++;
+                else
+                    dict.Add(die, 1);
+                if (dict[die] == 5)
+                    yahtzee = 50;
+            }
+            return yahtzee;
         }
 
 
